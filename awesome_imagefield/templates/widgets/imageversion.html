@@ -1,0 +1,48 @@
+<div class="form-row">
+        <label for="{{ id }}">{{ label }}</label>
+    {% if original.width < width or original.height < height %}
+        <div class="imageversion-container">
+        <img src="{{ original.url }}"
+            id="{{ name }}"
+            {% if original.width > 900 %}
+                width="900px" height="{% widthratio 900 original.width original.height %}px"
+            {% endif %}
+            />
+            <div class="imageversion-imgoverlay-error">Image too small</div>
+        </div>
+    {% else %}
+        <div class="imageversion-container">
+            <img src="{{ original.url }}"
+                id="{{ name }}"
+                {% if version and not version.missing_file %}
+                    style="display:none;"
+                {% endif %}
+                {% if original.width > 900 %}
+                    width="900px" height="{% widthratio 900 original.width original.height %}px"
+                {% endif %}
+                />
+            {% if version and not version.missing_file %}
+            <img src="{{ version.url }}" id="{{ name }}_version" />
+            <div class="imageversion-imgoverlay toggle" id="{{ name }}_cropon">Re-Crop</div>
+            <div class="imageversion-imgoverlay toogle" id="{{ name }}_cropoff" style="display:none">Cancel Crop</div>
+            {% else %}
+            <div class="imageversion-imgoverlay">Crop Required</div>
+            {% endif %}
+        </div>
+        {% for input_name in hidden_inputs %}
+            <input type="hidden" id="{{ input_name }}" name="{{ input_name }}" />
+        {% endfor %}
+        <script>
+            $(function(){
+                imageversion.addCropper(
+                    {{ cropfield_map|safe }},
+                    '{{ name }}',
+                    {{ width }},
+                    {{ height }},
+                    {% if version and not version.missing_file %}false{% else %}true{% endif %},
+                    {% if original.width > 900 %} 900 / {{original.width}} {% else %} 1 {% endif %}
+                );
+            });
+        </script>
+    {% endif %}
+</div>

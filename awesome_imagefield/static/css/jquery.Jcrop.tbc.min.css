@@ -1,0 +1,40 @@
+/* jquery.Jcrop.min.css v0.9.10 (build:20120429) */
+.jcrop-holder{float:left;}
+div.imageversion-container{
+	position: relative;
+	float: left;
+}
+div.imageversion-container div.imageversion-imgoverlay{
+	position: absolute; 
+	top: -5px; 
+	left: -15px;
+	background-color: rgba(0,0,0,.6);
+	background-image: none;
+	z-index: 600;
+	color: white;
+	padding: 10px 10px 10px 150px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;	
+}
+div.imageversion-container div.toggle{
+	cursor: pointer;
+}
+
+div.imageversion-container div.imageversion-imgoverlay-error{
+	position: absolute; 
+	top: -5px; 
+	left: -15px;
+	background-color: rgba(255,0,0,.6);
+	background-image: none;
+	z-index: 600;
+	color: white;
+	padding: 10px 10px 10px 150px;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+}

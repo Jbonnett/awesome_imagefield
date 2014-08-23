@@ -1,0 +1,12 @@
+<figure id="example_image_{{object.id}}" >
+    <img src="{{ object.file.versions.large_3_2.url }}"
+        alt="{{ object.title }}"
+    />
+    {% if file.missing_file %}
+        <script>window.console && console.warn("broken image: {{ object.file.versions.large_3_2.actual_path }}");</script>
+    {% endif %}
+    <figcaption >
+        {{ object.caption }}
+    </figcaption>
+</figure>
+
