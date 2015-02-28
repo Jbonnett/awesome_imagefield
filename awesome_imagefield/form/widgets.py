@@ -1,4 +1,4 @@
-import simplejson as json
+import json
 
 from django.conf import settings
 from django.forms.widgets import ClearableFileInput

@@ -2,15 +2,12 @@ import os.path
 from PIL import Image
 import StringIO
 
-from django.conf import settings
 from django.db import models
-from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models.fields.files import ImageFileDescriptor
 
 from south.modelsinspector import add_introspection_rules
-
-from .forms.fields import VersionedImageField as CropperFormField
+from .form.fields import VersionedImageField as CropperFormField
 
 
 # South migrations support for custom fields
@@ -19,18 +16,20 @@ add_introspection_rules([], ["^awesome_imagefield\.fields\.SquareAutoCropVersion
 
 
 class ImageVersionSet(object):
+
     def __init__(self, field, model_instance, filename):
         self.field = field
         self.filename = filename
         self.model_instance = model_instance
 
         '''
-        To get a set of ALL image versions which can be accessed from templates,
-        append the collection of `autosize_versions` from models to existing image versions.
+        To get a set of ALL image versions which can be accessed from
+        templates, append the collection of `autosize_versions` from models to
+        existing image versions.
         '''
-        # Copy existing versions, find their 'autosize_versions' (if any), and copy
-        # those to the top level of versions. To avoid recursion problems, start with
-        # an empty dict and copy elements in.
+        # Copy existing versions, find their 'autosize_versions' (if any), and
+        # copy those to the top level of versions. To avoid recursion
+        # problems, start with an empty dict and copy elements in.
         flat_versions = {}
         for version, attribs in field.versions.items():
             if 'autosize_versions' in attribs:
@@ -56,6 +55,7 @@ class ImageVersionSet(object):
 
 
 class VersionedImageFileDescriptor(ImageFileDescriptor):
+
     def __get__(self, instance=None, owner=None):
         val = super(VersionedImageFileDescriptor, self).__get__(instance, owner)
         if not getattr(val, 'versions', None):

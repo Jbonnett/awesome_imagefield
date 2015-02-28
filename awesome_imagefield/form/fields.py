@@ -1,5 +1,5 @@
 from django import forms
-from .forms.widgets import VersionedImageCropperInput
+from .widgets import VersionedImageCropperInput
 
 
 class VersionedImageField(forms.ImageField):
