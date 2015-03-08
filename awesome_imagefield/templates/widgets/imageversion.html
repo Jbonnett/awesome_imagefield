@@ -3,7 +3,7 @@
     {% if original.width < width or original.height < height %}
         <div class="imageversion-container">
         <img src="{{ original.url }}"
-            id="{{ name }}"
+            id="{{ id }}{{ name }}"
             {% if original.width > 900 %}
                 width="900px" height="{% widthratio 900 original.width original.height %}px"
             {% endif %}
@@ -13,7 +13,7 @@
     {% else %}
         <div class="imageversion-container">
             <img src="{{ original.url }}"
-                id="{{ name }}"
+                id="{{ id }}{{ name }}"
                 {% if version and not version.missing_file %}
                     style="display:none;"
                 {% endif %}
@@ -22,9 +22,9 @@
                 {% endif %}
                 />
             {% if version and not version.missing_file %}
-            <img src="{{ version.url }}" id="{{ name }}_version" />
-            <div class="imageversion-imgoverlay toggle" id="{{ name }}_cropon">Re-Crop</div>
-            <div class="imageversion-imgoverlay toogle" id="{{ name }}_cropoff" style="display:none">Cancel Crop</div>
+            <img src="{{ version.url }}" id="{{ id }}{{ name }}_version" />
+            <div class="imageversion-imgoverlay toggle" id="{{ id }}{{ name }}_cropon">Re-Crop</div>
+            <div class="imageversion-imgoverlay toogle" id="{{ id }}{{ name }}_cropoff" style="display:none">Cancel Crop</div>
             {% else %}
             <div class="imageversion-imgoverlay">Crop Required</div>
             {% endif %}
@@ -36,6 +36,7 @@
             $(function(){
                 imageversion.addCropper(
                     {{ cropfield_map|safe }},
+                    '{{ id }}',
                     '{{ name }}',
                     {{ width }},
                     {{ height }},

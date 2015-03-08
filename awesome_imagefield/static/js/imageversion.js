@@ -4,7 +4,7 @@ var imageversion = {
           $('#' + value).val(Math.round(c[key]/scale));
         });
     },
-    doCropper: function(cfmap, name, width, height, scale){
+    doCropper: function(cfmap, id, name, width, height, scale){
         var img = $('#' + name);
         var ver = $('#' + name + '_version');
 
@@ -24,24 +24,24 @@ var imageversion = {
             keySupport: false
         });
     },
-    removeCropper: function(name, fields){
+    removeCropper: function(id, name, fields){
         $.each(fields, function(key, value) {
           $('#' + value).val('');
         });
-        var ver = $('#' + name + '_version');
-        var org = $('#' + name);
+        var ver = $('#' + id + name + '_version');
+        var org = $('#' + id + name);
         org.data('Jcrop').destroy();
         org.hide();/*Jcrop unhides the original image on destroy */
         ver.show();
-        $('#' + name + '_cropoff').hide();
-        $('#' + name + '_cropon').show();
+        $('#' + id + name + '_cropoff').hide();
+        $('#' + id + name + '_cropon').show();
     },
-    addCropper: function(cfmap, name, width, height, active, scale){
+    addCropper: function(cfmap, id, name, width, height, active, scale){
         if(active){
-            imageversion.doCropper(cfmap, name, width, height, scale);
+            imageversion.doCropper(cfmap, id, name, width, height, scale);
         }else{
-            $('#' + name + '_cropon').click(function(){imageversion.doCropper(cfmap, name, width, height, scale);});
-            $('#' + name + '_cropoff').click(function(){imageversion.removeCropper(name, cfmap);});
+            $('#' + id + name + '_cropon').click(function(){imageversion.doCropper(cfmap, id, name, width, height, scale);});
+            $('#' + id + name + '_cropoff').click(function(){imageversion.removeCropper(id, name, cfmap);});
         }
     }
 };
